@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: family-bot
+    runtime: python
+    plan: free
+    # בכל העלאה: התקנת החבילות ובניית המאגר מחדש מתוך data
+    buildCommand: pip install -r requirements.txt && python ingest.py
+    startCommand: python server.py
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: FAMILY_PASSWORD
+        sync: false
