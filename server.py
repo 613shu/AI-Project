@@ -72,7 +72,8 @@ family_password = os.getenv("FAMILY_PASSWORD")
 
 @app.middleware("http")
 async def check_password(request: Request, call_next):
-    if family_password:
+    # /health פתוח בלי סיסמה, כדי שהפינג של UptimeRobot יוכל להעיר את השרת
+    if family_password and request.url.path != "/health":
         ok = False
         auth = request.headers.get("authorization", "")
         if auth.startswith("Basic "):
@@ -89,6 +90,12 @@ async def check_password(request: Request, call_next):
 @app.get("/")
 def home():
     return FileResponse("static/index.html")
+
+
+# נקודת בדיקה קלה לפינג שמעיר את השרת (UptimeRobot שולח GET או HEAD)
+@app.api_route("/health", methods=["GET", "HEAD"])
+def health():
+    return {"status": "ok"}
 
 
 @app.post("/api/chat")
