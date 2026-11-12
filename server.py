@@ -19,7 +19,7 @@ from family_calendar import CalendarPostprocessor
 
 # שרת קטן שמחבר את ממשק ה-React (static/index.html) לאותו מנוע RAG של app.py
 load_dotenv()
-Settings.llm = GoogleGenAI(model="gemini-3.5-flash", api_key=os.getenv("GEMINI_API_KEY"), temperature=1.3)
+Settings.llm = GoogleGenAI(model="gemini-3.5-flash-lite", api_key=os.getenv("GEMINI_API_KEY"), temperature=1.3)
 Settings.embed_model = GoogleGenAIEmbedding(model_name="gemini-embedding-001", api_key=os.getenv("GEMINI_API_KEY"))
 db = chromadb.PersistentClient(path="./chroma_db")
 chroma_collection = db.get_or_create_collection("family")

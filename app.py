@@ -18,7 +18,7 @@ def load_engine():
     # רץ פעם אחת בלבד, ולא בכל שאלה. משותף לכל המשתמשים, ולכן מחזיר רק את המאגר (בלי זיכרון שיחה)
     load_dotenv()
     # temperature: כמה הבוט יצירתי. בין 0 (מדויק וקבוע) ל-2 (יצירתי מאוד)
-    Settings.llm = GoogleGenAI(model="gemini-3.5-flash", api_key=os.getenv("GEMINI_API_KEY"), temperature=1.3)
+    Settings.llm = GoogleGenAI(model="gemini-3.5-flash-lite", api_key=os.getenv("GEMINI_API_KEY"), temperature=1.3)
     Settings.embed_model = GoogleGenAIEmbedding(model_name="gemini-embedding-001", api_key=os.getenv("GEMINI_API_KEY"))
     db = chromadb.PersistentClient(path="./chroma_db")
     chroma_collection = db.get_or_create_collection("family")
